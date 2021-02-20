@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node .",
     "lint": "eslint **/*.ts",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "repository": {
     "type": "git",
