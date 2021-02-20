@@ -1,0 +1,20 @@
+{
+  "name": "HiveFivesChallenge",
+  "version": "1.0.0",
+  "description": "A simple API that allows employees to give their co-workers recognition and also allow managers to view the Hive-Fives that have been sent within their teams",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leannebayliss3/HiveFivesChallenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leannebayliss3/HiveFivesChallenge/issues"
+  },
+  "homepage": "https://github.com/leannebayliss3/HiveFivesChallenge#readme"
+}
