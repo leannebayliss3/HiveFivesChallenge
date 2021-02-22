@@ -1,9 +1,8 @@
 import dotenv from "dotenv";
 import express from 'express';
 import * as expressGraphQl from 'express-graphql';
-
-import {Recognition} from './Schema/recognition';
 import {MongoDb} from "./database/mongoDb";
+import {HiveFiveAPISchema} from "./schema/HiveFiveAPISchema";
 
 if (process.env.NODE_ENV === 'development') {
     dotenv.config();
@@ -12,10 +11,12 @@ if (process.env.NODE_ENV === 'development') {
 const app = express();
 const port = process.env.PORT || 4000;
 
+
+
 MongoDb.getInstance()
     .then(() => {
         app.use('/graphql', expressGraphQl.graphqlHTTP({
-            schema: new Recognition().recognitionSchema,
+            schema: new HiveFiveAPISchema().recognitionSchema,
             graphiql: true
         }))
         app.listen(port,
