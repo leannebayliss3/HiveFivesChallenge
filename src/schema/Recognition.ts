@@ -63,17 +63,4 @@ export class Recognition {
         }
         return this.mongooseModel.find(queryConditions || {});
     }
-    // getRecognitions(resolverParams: IResolverParams): Query<any[], any> {
-    //     let queryConditions: {} | undefined;
-    //
-    //     if (resolverParams.args.startDate && resolverParams.args.endDate) {
-    //         queryConditions = {
-    //             $and: [
-    //                 {createdDate: {$gte: dayjs(resolverParams.args.startDate).format()}},
-    //                 {createdDate: {$lte: dayjs(resolverParams.args.endDate).format()}},
-    //             ]
-    //         }
-    //     }
-    //     return this.mongooseModel.find(queryConditions || {});
-    // }
 }
