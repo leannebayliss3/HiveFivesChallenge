@@ -1,7 +1,7 @@
-import {Model} from "mongoose";
+import {DocumentQuery, Model} from "mongoose";
 import {ObjectTypeComposer} from "graphql-compose";
 import {CustomResolvers} from "../resolvers/CustomResolvers";
-import {TResolverParams} from "../resolvers/TResolverParams";
+import {IResolverParams} from "../resolvers/IResolverParams";
 import dayjs from "dayjs";
 import {MongooseModel} from "../models/MongooseModel";
 import {composeWithMongoose} from "graphql-compose-mongoose";
@@ -10,7 +10,7 @@ import {IResolverObject} from "./IResolverObject";
 export class Recognition {
     readonly queryResolvers: IResolverObject;
     readonly mutationResolvers: IResolverObject;
-    readonly graphQlTC: ObjectTypeComposer;
+    readonly graphQlModel: ObjectTypeComposer;
     readonly mongooseModel: Model<any>;
 
     constructor() {
@@ -24,34 +24,33 @@ export class Recognition {
             },
             modelTCOpts: {}
         }).model;
-
-        console.log(this.mongooseModel);
-        this.graphQlTC = composeWithMongoose(this.mongooseModel, {});
+        this.graphQlModel = composeWithMongoose(this.mongooseModel, {});
 
         this.loadCustomResolvers()
 
         // Create resolver objects
         this.queryResolvers = {
-            getRecognitionById: this.graphQlTC.getResolver('findById'),
-            getRecognitions: this.graphQlTC.getResolver('getRecognitions')
+            getRecognitionById: this.graphQlModel.getResolver('findById'),
+            getRecognitions: this.graphQlModel.getResolver('getRecognitions')
         }
         this.mutationResolvers = {
-            recognitionCreateOne: this.graphQlTC.getResolver('createOne'),
+            recognitionCreateOne: this.graphQlModel.getResolver('createOne'),
         }
     }
 
     // Add the custom resolvers needed for the Recognition Model
     private loadCustomResolvers() {
-        const customResolver = new CustomResolvers(this.graphQlTC);
+        const customResolver = new CustomResolvers(this.graphQlModel);
         customResolver.addCustomResolver({
             name: 'getRecognitions',
             args: {startDate: 'Date', endDate: 'Date'},
+            type: [this.graphQlModel],
             resolver: this.getRecognitions
         });
     }
 
     // Custom resolver functions
-    getRecognitions(resolverParams: TResolverParams) {
+    getRecognitions = async (resolverParams: IResolverParams): Promise<DocumentQuery<any[], any, {}>> => {
         let queryConditions: {} | undefined;
 
         if (resolverParams.args.startDate && resolverParams.args.endDate) {
@@ -64,4 +63,17 @@ export class Recognition {
         }
         return this.mongooseModel.find(queryConditions || {});
     }
+    // getRecognitions(resolverParams: IResolverParams): Query<any[], any> {
+    //     let queryConditions: {} | undefined;
+    //
+    //     if (resolverParams.args.startDate && resolverParams.args.endDate) {
+    //         queryConditions = {
+    //             $and: [
+    //                 {createdDate: {$gte: dayjs(resolverParams.args.startDate).format()}},
+    //                 {createdDate: {$lte: dayjs(resolverParams.args.endDate).format()}},
+    //             ]
+    //         }
+    //     }
+    //     return this.mongooseModel.find(queryConditions || {});
+    // }
 }

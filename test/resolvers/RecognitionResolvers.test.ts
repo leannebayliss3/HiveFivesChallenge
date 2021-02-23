@@ -2,7 +2,7 @@ import {CustomResolvers} from "../../src/resolvers/CustomResolvers";
 import {Recognition} from "../../src/schema/Recognition";
 import {ObjectTypeComposer, schemaComposer} from "graphql-compose";
 import * as mongoose from "mongoose";
-import {TResolverParams} from "../../src/resolvers/TResolverParams";
+import {IResolverParams} from "../../src/resolvers/IResolverParams";
 import dayjs from "dayjs";
 
 
@@ -37,7 +37,7 @@ describe('RecognitionResolvers', () => {
         })
 
         test('should call mongoose.find with an empty object if no dates are provided', () => {
-            let options: TResolverParams ={
+            let options: IResolverParams ={
                 source: {},
                 args: {}
             };
@@ -48,7 +48,7 @@ describe('RecognitionResolvers', () => {
         });
 
         test('should call mongoose.find with the start and end date if provided', () => {
-            let options: TResolverParams ={
+            let options: IResolverParams ={
                 source: {},
                 args: {
                     startDate: '20-02/2021',

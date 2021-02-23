@@ -1,17 +1,18 @@
 import {CustomResolvers} from "../../src/resolvers/CustomResolvers";
 import {MongooseModel} from "../../src/models/MongooseModel";
-import {GraphQLModel} from "../../src/schema/GraphQLModel";
 import {IResolverParams} from "../../src/resolvers/IResolverParams";
 
-import {Model} from "mongoose";
+import {DocumentQuery, Model} from "mongoose";
 import {ObjectTypeComposer} from "graphql-compose";
 import Spy = jasmine.Spy;
+import {composeWithMongoose} from "graphql-compose-mongoose";
+
 
 describe('CustomResolvers', () => {
     let TestModel: Model<any>;
     let TestQlModel: ObjectTypeComposer;
     let testResolvers: CustomResolvers;
-    let testFunction: (opts: IResolverParams) => Model<any>;
+    let testFunction: (resolverParams: IResolverParams) => Promise<DocumentQuery<any[], any, {}>>;
     let addResolverSpy: Spy;
 
     beforeAll(() => {
@@ -22,21 +23,22 @@ describe('CustomResolvers', () => {
             modelTCOpts: {}
         }
         TestModel = new MongooseModel(modelOptions).model
-        TestQlModel = new GraphQLModel(TestModel, modelOptions.modelTCOpts).graphQlTC
+        TestQlModel = composeWithMongoose(TestModel, {});
         testResolvers = new CustomResolvers(TestQlModel);
-        testFunction = () => {
-            return new TestModel({name: 'Leanne', likesMarmite: false});
-        };
+        testFunction = async (): Promise<DocumentQuery<any[], any, {}>> => {
+            return TestModel.find({});
+        }
     });
 
     beforeEach(() => {
         addResolverSpy = spyOn(TestQlModel, 'addResolver').and.callThrough();
-        testResolvers.addCustomResolver('testResolver', {}, testFunction);
+        testResolvers.addCustomResolver({name:'testResolver', args:{}, type: TestQlModel, resolver:testFunction});
     })
 
     afterEach(() => {
         jest.clearAllMocks();
     });
+
     test('should exist', () => {
         expect(CustomResolvers).toBeDefined();
     });

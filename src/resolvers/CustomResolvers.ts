@@ -1,21 +1,21 @@
 import {ObjectTypeComposer} from "graphql-compose";
-import {Model} from "mongoose";
-import {IResolverParams} from "./IResolverParams";
+
+import {ICustomResolver} from "./ICustomResolver";
 
 export class CustomResolvers {
     private readonly graphQLModel: ObjectTypeComposer;
 
-    constructor(graphQLModel: ObjectTypeComposer,) {
+    constructor(graphQLModel: ObjectTypeComposer) {
         this.graphQLModel = graphQLModel;
     }
 
-    addCustomResolver(name: string, args: {}, resolver: (params: IResolverParams) => Model<any>){
+    addCustomResolver(customResolver: ICustomResolver){
         this.graphQLModel.addResolver({
-            name: name,
-            args: args,
-            type: this.graphQLModel,
+            name: customResolver.name,
+            args: customResolver.args,
+            type: customResolver.type,
             resolve: async (resolverParams: { source: any, args: any }) => {
-                return resolver(resolverParams)
+                return customResolver.resolver(resolverParams);
             }
         });
     }
