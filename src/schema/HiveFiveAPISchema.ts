@@ -28,7 +28,8 @@ export class HiveFiveAPISchema {
                     return this.User.mongooseModel.findOne({ _id: options.recipientId });
                 }
             }
-        })
+        });
+
         // Build API Schema
         this.apiSchema = this.buildGraphQlSchema();
     }
@@ -48,9 +49,5 @@ export class HiveFiveAPISchema {
         );
 
         return schemaComposer.buildSchema();
-    }
-
-    get recognitionSchema() {
-        return this.apiSchema
     }
 }

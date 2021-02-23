@@ -8,6 +8,10 @@ describe('User', () => {
         schemaComposer.clear();
         jest.clearAllMocks();
     });
+    afterEach(() => {
+        delete mongoose.models['User'];
+        schemaComposer.clear();
+    })
 
     test('should exist', () => {
         expect(User).toBeDefined();
