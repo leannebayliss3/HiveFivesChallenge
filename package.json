@@ -1,10 +1,11 @@
 {
-  "name": "HiveFivesChallenge",
+  "name": "hive-fives-challenge",
   "version": "1.0.0",
   "description": "A simple API that allows employees to give their co-workers recognition and also allow managers to view the Hive-Fives that have been sent within their teams",
   "main": "src/app.js",
   "scripts": {
     "start": "tsc && node .",
+    "dev": "NODE_ENV=development npm start",
     "lint": "eslint **/*.ts",
     "test": "jest --passWithNoTests"
   },
@@ -22,7 +23,7 @@
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.20",
-    "@types/mongodb": "^3.6.8",
+    "@types/mongoose": "^5.10.3",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "eslint": "^7.20.0",
@@ -32,10 +33,13 @@
   },
   "dependencies": {
     "@tsconfig/recommended": "^1.0.1",
+    "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.0",
+    "graphql-compose": "^7.25.0",
+    "graphql-compose-mongoose": "^9.1.0",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.17"
   }

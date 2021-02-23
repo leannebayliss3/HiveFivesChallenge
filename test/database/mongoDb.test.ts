@@ -1,4 +1,4 @@
-import {MongoDb} from "../../database/mongoDb";
+import {MongoDb} from "../../src/database/mongoDb";
 import {Connection} from "mongoose";
 import dotenv from "dotenv";
 
@@ -38,7 +38,7 @@ describe('MongoDb connection', () => {
         test('should throw an error when no database config is found', () => {
             const mongoInstance = MongoDb.getInstance();
             mongoInstance
-                .then((connection: any) => {
+                .then(() => {
                     throw Error(`getInstance - no db config: connection successfully established`);
                 }).catch(error => {
                     expect(error).toEqual('DB_URI or PASSWORD cannot be undefined');
