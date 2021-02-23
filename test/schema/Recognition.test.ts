@@ -1,13 +1,12 @@
 import {CustomResolvers} from "../../src/resolvers/CustomResolvers";
 import {Recognition} from "../../src/schema/Recognition";
 import {ObjectTypeComposer, schemaComposer} from "graphql-compose";
-import * as mongoose from "mongoose";
+import mongoose from "mongoose";
 import {IResolverParams} from "../../src/resolvers/IResolverParams";
 import dayjs from "dayjs";
 
-
 describe('RecognitionResolvers', () => {
-    afterEach(() => {
+    beforeEach(() => {
         delete mongoose.models['Recognition'];
         schemaComposer.clear();
         jest.clearAllMocks();
@@ -16,6 +15,19 @@ describe('RecognitionResolvers', () => {
     test('should exist', () => {
         expect(Recognition).toBeDefined();
     });
+
+    test('should create Mongoose model', () => {
+        const modelSpy = spyOn(mongoose, 'model').and.callThrough();
+        const recognition = new Recognition();
+        expect(modelSpy).toHaveBeenCalledTimes(1);
+        expect(recognition.mongooseModel).toBeDefined();
+    })
+
+    test('should create GraphQL model', () => {
+        const recognition = new Recognition();
+        expect(recognition.graphQlModel).toBeDefined();
+    })
+
 
     test('should create custom resolvers on the model', () => {
         spyOn(CustomResolvers.prototype, 'addCustomResolver').and.callThrough();
@@ -27,6 +39,14 @@ describe('RecognitionResolvers', () => {
         const recognition = new Recognition();
         expect(Object.keys(recognition.queryResolvers)).toEqual(['getRecognitionById', 'getRecognitions']);
         expect(Object.keys(recognition.queryResolvers).length).toEqual(2);
+        expect(ObjectTypeComposer.prototype.getResolver).toHaveBeenCalled();
+    });
+
+    test('should set mutationResolver object containing the queries for GraphQL', () => {
+        spyOn(ObjectTypeComposer.prototype, 'getResolver').and.callThrough();
+        const recognition = new Recognition();
+        expect(Object.keys(recognition.mutationResolvers)).toEqual(['recognitionCreateOne']);
+        expect(Object.keys(recognition.mutationResolvers).length).toEqual(1);
         expect(ObjectTypeComposer.prototype.getResolver).toHaveBeenCalled();
     });
 
