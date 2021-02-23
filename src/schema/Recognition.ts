@@ -1,4 +1,4 @@
-import {DocumentQuery, Model} from "mongoose";
+import {DocumentQuery, Model, Schema} from "mongoose";
 import {ObjectTypeComposer} from "graphql-compose";
 import {CustomResolvers} from "../resolvers/CustomResolvers";
 import {IResolverParams} from "../resolvers/IResolverParams";
@@ -18,8 +18,8 @@ export class Recognition {
         this.mongooseModel = new MongooseModel({
             modelName: 'Recognition',
             modelSchema: {
-                sender: String,
-                recipient: String,
+                senderId: Schema.Types.ObjectId,
+                recipientId: Schema.Types.ObjectId,
                 message: String
             },
             modelTCOpts: {}
@@ -27,6 +27,7 @@ export class Recognition {
         this.graphQlModel = composeWithMongoose(this.mongooseModel, {});
 
         this.loadCustomResolvers()
+
 
         // Create resolver objects
         this.queryResolvers = {
@@ -63,4 +64,7 @@ export class Recognition {
         }
         return this.mongooseModel.find(queryConditions || {});
     }
+
+
+
 }
