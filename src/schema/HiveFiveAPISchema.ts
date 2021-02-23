@@ -2,28 +2,33 @@
 import {schemaComposer} from "graphql-compose";
 import {GraphQLSchema} from "graphql";
 import {Recognition} from "./Recognition";
+import {User} from "./User";
 
 export class HiveFiveAPISchema {
-    private readonly _recognitionSchema: GraphQLSchema;
-    private recognitionResolvers: Recognition;
+    readonly apiSchema: GraphQLSchema;
+    private Recognition: Recognition;
+    private User: User;
 
     constructor() {
         // Load Resolvers
-        this.recognitionResolvers = new Recognition();
+        this.Recognition = new Recognition();
+        this.User = new User();
 
         // Build API Schema
-        this._recognitionSchema = this.buildGraphQlSchema()
+        this.apiSchema = this.buildGraphQlSchema();
     }
 
     private buildGraphQlSchema() {
         schemaComposer.Query.addFields(
             {
-                ...this.recognitionResolvers.queryResolvers
+                ...this.Recognition.queryResolvers,
+                ...this.User.queryResolvers
             }
         )
 
         schemaComposer.Mutation.addFields({
-                ...this.recognitionResolvers.mutationResolvers
+                ...this.Recognition.mutationResolvers,
+                ...this.User.mutationResolvers
             }
         );
 
@@ -31,6 +36,6 @@ export class HiveFiveAPISchema {
     }
 
     get recognitionSchema() {
-        return this._recognitionSchema
+        return this.apiSchema
     }
 }
