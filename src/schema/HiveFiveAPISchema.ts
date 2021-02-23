@@ -1,32 +1,15 @@
 //Compile all resolvers here.
-import {ObjectTypeComposer, schemaComposer} from "graphql-compose";
+import {schemaComposer} from "graphql-compose";
 import {GraphQLSchema} from "graphql";
-
-import {RecognitionQLSchema} from "./RecognitionQLSchema";
-import {MongooseModel} from "../models/MongooseModel";
-import {RecognitionResolvers} from "../resolvers/RecognitionResolvers";
+import {Recognition} from "./Recognition";
 
 export class HiveFiveAPISchema {
     private readonly _recognitionSchema: GraphQLSchema;
-    private readonly graphQlTC: ObjectTypeComposer;
-    private recognitionResolvers: RecognitionResolvers;
+    private recognitionResolvers: Recognition;
+
     constructor() {
-        // Create Models
-        const recognitionModel = new MongooseModel({
-            modelName: 'Recognition',
-            modelSchema: {
-                sender: String,
-                recipient: String,
-                message: String
-            },
-            modelTCOpts: {}
-        }).model;
-
-        // Create graphQLModel
-        this.graphQlTC = new RecognitionQLSchema(recognitionModel, {}).graphQlTC;
-
         // Load Resolvers
-        this.recognitionResolvers = new RecognitionResolvers(recognitionModel, this.graphQlTC);
+        this.recognitionResolvers = new Recognition();
 
         // Build API Schema
         this._recognitionSchema = this.buildGraphQlSchema()
