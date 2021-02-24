@@ -2,7 +2,6 @@ import {DocumentQuery, Model, Schema} from "mongoose";
 import {ObjectTypeComposer} from "graphql-compose";
 import {CustomResolvers} from "../resolvers/CustomResolvers";
 import {IResolverParams} from "../resolvers/IResolverParams";
-import dayjs from "dayjs";
 import {MongooseModel} from "../models/MongooseModel";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 import {IResolverObject} from "./IResolverObject";
@@ -28,7 +27,6 @@ export class Recognition {
 
         this.loadCustomResolvers()
 
-
         // Create resolver objects
         this.queryResolvers = {
             getRecognitionById: this.graphQlModel.getResolver('findById'),
@@ -44,7 +42,7 @@ export class Recognition {
         const customResolver = new CustomResolvers(this.graphQlModel);
         customResolver.addCustomResolver({
             name: 'getRecognitions',
-            args: {startDate: 'Date', endDate: 'Date'},
+            args: {senderId: 'String'},
             type: [this.graphQlModel],
             resolver: this.getRecognitions
         });
@@ -54,14 +52,10 @@ export class Recognition {
     getRecognitions = async (resolverParams: IResolverParams): Promise<DocumentQuery<any[], any, {}>> => {
         let queryConditions: {} | undefined;
 
-        if (resolverParams.args.startDate && resolverParams.args.endDate) {
-            queryConditions = {
-                $and: [
-                    {createdDate: {$gte: dayjs(resolverParams.args.startDate).format()}},
-                    {createdDate: {$lte: dayjs(resolverParams.args.endDate).format()}},
-                ]
-            }
+        if (resolverParams.args.senderId) {
+            queryConditions = {senderId: resolverParams.args.senderId}
         }
+
         return this.mongooseModel.find(queryConditions || {});
     }
 
