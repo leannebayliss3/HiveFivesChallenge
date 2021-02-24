@@ -1,8 +1,8 @@
 import {Document, Model} from 'mongoose';
-import {ObjectTypeComposer} from "graphql-compose";
-import {MongooseModel} from "../models/MongooseModel";
-import {composeWithMongoose} from "graphql-compose-mongoose";
 import {IResolverObject} from "./IResolverObject";
+import {MongooseModel} from "../models/MongooseModel";
+import {ObjectTypeComposer} from "graphql-compose";
+import {composeWithMongoose} from "graphql-compose-mongoose";
 
 export class User {
     readonly queryResolvers: IResolverObject;
