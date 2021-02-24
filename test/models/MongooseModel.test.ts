@@ -1,9 +1,10 @@
+import {IModelOptions} from '../../src/models/IModelOptions';
 import {MongooseModel} from "../../src/models/MongooseModel";
 import {schemaComposer} from "graphql-compose";
 import mongoose from "mongoose";
 
 describe('MongooseModel', () => {
-    let modelOptions: { modelName: string, modelSchema: Record<string, unknown>, modelTCOpts: Record<string, unknown> }
+    let modelOptions: IModelOptions
     beforeAll(() => {
         modelOptions = {
             modelName: 'TestModel',
