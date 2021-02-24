@@ -1,6 +1,6 @@
 import {CustomResolvers} from "../../src/resolvers/CustomResolvers";
-import {MongooseModel} from "../../src/models/MongooseModel";
 import {IResolverParams} from "../../src/resolvers/IResolverParams";
+import {MongooseModel} from "../../src/models/MongooseModel";
 
 import {Document, DocumentQuery, Model} from 'mongoose';
 import {ObjectTypeComposer} from "graphql-compose";

@@ -1,8 +1,8 @@
 //Compile all resolvers here.
-import {schemaComposer} from "graphql-compose";
 import {GraphQLSchema} from "graphql";
 import {Recognition} from "./Recognition";
 import {User} from "./User";
+import {schemaComposer} from "graphql-compose";
 
 export class HiveFiveAPISchema {
     readonly apiSchema: GraphQLSchema;
