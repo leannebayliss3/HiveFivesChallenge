@@ -8,7 +8,7 @@
     "postinstall": "npm run tsc",
     "start": "node .",
     "dev": "npm run tsc && NODE_ENV=development npm start",
-    "lint": "eslint ./**/**/*.ts --fix",
+    "lint": "eslint ./src/**/*.ts ./test/**/*.ts --fix",
     "test": "jest --passWithNoTests"
   },
   "repository": {
@@ -39,6 +39,7 @@
     "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
     "eslint-plugin-jest": "^24.1.5",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.0",
