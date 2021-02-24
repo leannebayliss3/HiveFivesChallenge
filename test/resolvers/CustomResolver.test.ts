@@ -4,15 +4,15 @@ import {IResolverParams} from "../../src/resolvers/IResolverParams";
 
 import {Document, DocumentQuery, Model} from 'mongoose';
 import {ObjectTypeComposer} from "graphql-compose";
-import Spy = jasmine.Spy;
 import {composeWithMongoose} from "graphql-compose-mongoose";
 
+import Spy = jasmine.Spy;
 
 describe('CustomResolvers', () => {
     let TestModel: Model<Document>;
     let TestQlModel: ObjectTypeComposer;
     let testResolvers: CustomResolvers;
-    let testFunction: (resolverParams: IResolverParams) => Promise<DocumentQuery<unknown[], Document, unknown>>;
+    let testFunction: (resolverParams: IResolverParams) => Promise<DocumentQuery<unknown[], Document, Record<string, unknown>>>;
     let addResolverSpy: Spy;
 
     beforeAll(() => {
@@ -25,7 +25,7 @@ describe('CustomResolvers', () => {
         TestModel = new MongooseModel(modelOptions).model
         TestQlModel = composeWithMongoose(TestModel, {});
         testResolvers = new CustomResolvers(TestQlModel);
-        testFunction = async (): Promise<DocumentQuery<unknown[], Document, unknown>> => {
+        testFunction = async (): Promise<DocumentQuery<unknown[], Document, Record<string, unknown>>> => {
             return TestModel.find({});
         }
     });
