@@ -1,6 +1,8 @@
-import {User} from "../../src/schema/User";
 import {ObjectTypeComposer, schemaComposer} from "graphql-compose";
+import {User} from "../../src/schema/User";
 import mongoose from "mongoose";
+
+
 
 describe('User', () => {
     beforeEach(() => {
