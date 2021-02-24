@@ -22,7 +22,7 @@ Documentation on the queries and mutations available, (including input and retur
 the '< Docs' link at the top-right of the site 
 
 Examples of data structure, query and mutation called can be found in the
-[GraphiQL Queries, Mutations and Example Data](#GraphiQL-Queries,-Mutations-and-Example-Data "Goto heading-1")
+[GraphiQL Queries, Mutations and Example Data](#graphiql-queries,-mutations-and-example-data)
 
 ## Technologies and Packages Used
 This API is written entirely in TypeScript and uses `GraphQL`, `ExpressJS`, `express-graphql` to create the service. 
@@ -41,7 +41,7 @@ These packages allow mongoose schemas and models to be used as a base for GraphQ
 * Change to Apollo Server from Express-GraphQL for production service:
   * Express-GraphQL was chosen for this task due to its easy setup
 
-## GraphiQL Queries, Mutations and Example Data #
+## GraphiQL Queries, Mutations and Example Data
 In order to browse the HiveFivesChallenge API please use the sample queries below.
 ```
 fragment user on User {
