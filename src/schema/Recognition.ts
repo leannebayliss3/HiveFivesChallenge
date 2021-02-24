@@ -6,6 +6,8 @@ import dayjs from "dayjs";
 import {MongooseModel} from "../models/MongooseModel";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 import {IResolverObject} from "./IResolverObject";
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+dayjs.extend(customParseFormat)
 
 export class Recognition {
     readonly queryResolvers: IResolverObject;
@@ -27,7 +29,6 @@ export class Recognition {
         this.graphQlModel = composeWithMongoose(this.mongooseModel, {});
 
         this.loadCustomResolvers()
-
 
         // Create resolver objects
         this.queryResolvers = {
@@ -52,13 +53,15 @@ export class Recognition {
 
     // Custom resolver functions
     getRecognitions = async (resolverParams: IResolverParams): Promise<DocumentQuery<any[], any, {}>> => {
+        const dateFormat: string[] = ['DD-MM-YYYY', 'YYYY-MM-DD'];
+
         let queryConditions: {} | undefined;
 
         if (resolverParams.args.startDate && resolverParams.args.endDate) {
             queryConditions = {
                 $and: [
-                    {createdDate: {$gte: dayjs(resolverParams.args.startDate).format()}},
-                    {createdDate: {$lte: dayjs(resolverParams.args.endDate).format()}},
+                    {createdDate: {$gte: dayjs(resolverParams.args.startDate, dateFormat).format()}},
+                    {createdDate: {$lte: dayjs(resolverParams.args.endDate, dateFormat).format()}},
                 ]
             }
         }
