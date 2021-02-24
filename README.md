@@ -2,7 +2,15 @@
 A simple API that allows employees to give their co-workers recognition and also allow managers to view the Hive-Fives 
 that have been sent within their teams.
 
-## Interacting with HiveFivesChallenge
+## Local Development
+Once repo is cloned onto your machine:
+* Install using `npm install`
+* Run Jest Unit Tests via `npm test`
+  
+Local development requires secret credentials for Mongo Atlas connection. 
+The current secrets are held in local `.env` file. See [Improvements and Next Steps](#improvements-and-next-steps)
+
+## Interacting with Deployed HiveFivesChallenge
 The API is deployed on Heroku and exposes a UI (using `GraphiQL`) in order to interact with the service.
 
 This Hive-Fives service is based on the premise that user's are already created within the database.
@@ -35,8 +43,8 @@ These packages allow mongoose schemas and models to be used as a base for GraphQ
 ## Improvements and Next Steps
 * Separate API for user management
 * Implement SSL certificates and secret storage for database authentication
-    * Current solution requires username and password access
-* Create CI/CD pipeline to fully automate testing, building and deploying of the code
+* Implement a mongodb container solution to provide a local ephemeral environment for feature development
+* Create CI/CD pipeline to fully automate testing, building and deploying of artifacts
 * Containerise API allowing the service to be deployed easily to any hosting service
 * Change to Apollo Server from Express-GraphQL for production service:
   * Express-GraphQL was chosen for this task due to its easy setup
