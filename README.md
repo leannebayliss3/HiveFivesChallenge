@@ -22,7 +22,7 @@ Documentation on the queries and mutations available, (including input and retur
 the '< Docs' link at the top-right of the site 
 
 Examples of data structure, query and mutation called can be found in the
-[GraphiQL Queries, Mutations and Example Data](#graphiql-queries,-mutations-and-example-data)
+[GraphiQL Queries, Mutations and Example Data](#GraphiQL-Queries,-Mutations-and-Example-Data)
 
 ## Technologies and Packages Used
 This API is written entirely in TypeScript and uses `GraphQL`, `ExpressJS`, `express-graphql` to create the service. 
