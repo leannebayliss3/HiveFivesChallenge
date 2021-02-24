@@ -16,7 +16,7 @@ const port = process.env.PORT || 4000;
 MongoDb.getInstance()
     .then(() => {
         app.use('/graphql', expressGraphQl.graphqlHTTP({
-            schema: new HiveFiveAPISchema().recognitionSchema,
+            schema: new HiveFiveAPISchema().apiSchema,
             graphiql: true
         }))
         app.listen(port,

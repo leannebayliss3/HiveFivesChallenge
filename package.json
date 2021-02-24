@@ -4,7 +4,9 @@
   "description": "A simple API that allows employees to give their co-workers recognition and also allow managers to view the Hive-Fives that have been sent within their teams",
   "main": "src/app.js",
   "scripts": {
-    "start": "tsc && node .",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc",
+    "start": "node .",
     "dev": "NODE_ENV=development npm start",
     "lint": "eslint **/*.ts",
     "test": "jest --passWithNoTests"
