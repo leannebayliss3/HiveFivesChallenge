@@ -1,18 +1,13 @@
 import mongoose, {Connection} from 'mongoose';
 
 export class MongoDb {
-    private static _instance: Promise<Connection> ;
-
-    private constructor() {
-    }
+    private static _instance: Promise<Connection>;
 
     static getInstance(): Promise<Connection> {
         if (!MongoDb._instance) {
-            try {
-                return MongoDb._instance = new MongoDb().connect();
-            }catch (e) {
-                throw e;
-            }
+
+            return MongoDb._instance = new MongoDb().connect();
+
 
         }
         return MongoDb._instance;
@@ -22,7 +17,7 @@ export class MongoDb {
         if (process.env.DB_URI && process.env.PASSWORD) {
             const uri = process.env.DB_URI.replace('<password>', process.env.PASSWORD);
             return new Promise((resolve) => {
-                mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true })
+                mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
                     .then(() => {
                         resolve(mongoose.connection);
                     });
