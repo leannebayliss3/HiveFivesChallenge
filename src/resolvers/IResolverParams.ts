@@ -1,4 +1,4 @@
 export interface IResolverParams {
-    source: any,
-    args: any
+    source: Record<string, unknown>,
+    args: Record<string, unknown>
 }

@@ -1,5 +1,5 @@
-import {IResolverParams} from "./IResolverParams";
 import {DocumentQuery} from "mongoose";
+import {IResolverParams} from "./IResolverParams";
 
 export interface ICustomResolver {
     name: string,
