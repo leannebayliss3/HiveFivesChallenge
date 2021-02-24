@@ -1,8 +1,8 @@
 import {CustomResolvers} from "../../src/resolvers/CustomResolvers";
-import {Recognition} from "../../src/schema/Recognition";
-import {ObjectTypeComposer, schemaComposer} from "graphql-compose";
-import mongoose from "mongoose";
 import {IResolverParams} from "../../src/resolvers/IResolverParams";
+import {ObjectTypeComposer, schemaComposer} from "graphql-compose";
+import {Recognition} from "../../src/schema/Recognition";
+import mongoose from "mongoose";
 
 describe('RecognitionResolvers', () => {
     beforeEach(() => {
@@ -57,7 +57,7 @@ describe('RecognitionResolvers', () => {
         })
 
         test('should call mongoose.find with an empty object if no senderId is provided', () => {
-            let options: IResolverParams = {
+            const options: IResolverParams = {
                 source: {},
                 args: {}
             };
@@ -69,13 +69,13 @@ describe('RecognitionResolvers', () => {
 
         test('should call mongoose.find with senderId if provided', () => {
             const testId = '123456'
-            let options: IResolverParams ={
+            const options: IResolverParams ={
                 source: {},
                 args: {
                     senderId: testId
                 }
             };
-            let queryConditions = {senderId: testId}
+            const queryConditions = {senderId: testId}
             const mongooseFind = spyOn(recognition.mongooseModel, 'find').and.stub();
             recognition.getRecognitions(options);
             expect(mongooseFind).toHaveBeenCalledTimes(1);

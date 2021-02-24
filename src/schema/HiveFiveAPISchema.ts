@@ -1,8 +1,8 @@
 //Compile all resolvers here.
-import {schemaComposer} from "graphql-compose";
 import {GraphQLSchema} from "graphql";
 import {Recognition} from "./Recognition";
 import {User} from "./User";
+import {schemaComposer} from "graphql-compose";
 
 export class HiveFiveAPISchema {
     readonly apiSchema: GraphQLSchema;
@@ -18,13 +18,13 @@ export class HiveFiveAPISchema {
         this.Recognition.graphQlModel.addFields({
             sender: {
                 type: this.User.graphQlModel,
-                resolve: async (options: any) => {
+                resolve: async (options: Record<string, unknown>) => {
                     return this.User.mongooseModel.findOne({ _id: options.senderId });
                 }
             },
             recipient: {
                 type: this.User.graphQlModel,
-                resolve: async (options: any) => {
+                resolve: async (options: Record<string, unknown>) => {
                     return this.User.mongooseModel.findOne({ _id: options.recipientId });
                 }
             }

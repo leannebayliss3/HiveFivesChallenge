@@ -1,14 +1,14 @@
-import {Model} from "mongoose";
-import {ObjectTypeComposer} from "graphql-compose";
-import {MongooseModel} from "../models/MongooseModel";
-import {composeWithMongoose} from "graphql-compose-mongoose";
+import {Document, Model} from 'mongoose';
 import {IResolverObject} from "./IResolverObject";
+import {MongooseModel} from "../models/MongooseModel";
+import {ObjectTypeComposer} from "graphql-compose";
+import {composeWithMongoose} from "graphql-compose-mongoose";
 
 export class User {
     readonly queryResolvers: IResolverObject;
     readonly mutationResolvers: IResolverObject;
     readonly graphQlModel: ObjectTypeComposer;
-    readonly mongooseModel: Model<any>;
+    readonly mongooseModel: Model<Document>;
 
     constructor() {
         // Set Models

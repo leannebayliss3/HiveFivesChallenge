@@ -1,16 +1,16 @@
-import {DocumentQuery, Model, Schema} from "mongoose";
-import {ObjectTypeComposer} from "graphql-compose";
 import {CustomResolvers} from "../resolvers/CustomResolvers";
+import {Document, DocumentQuery, Model, Schema} from 'mongoose';
+import {IResolverObject} from "./IResolverObject";
 import {IResolverParams} from "../resolvers/IResolverParams";
 import {MongooseModel} from "../models/MongooseModel";
+import {ObjectTypeComposer} from "graphql-compose";
 import {composeWithMongoose} from "graphql-compose-mongoose";
-import {IResolverObject} from "./IResolverObject";
 
 export class Recognition {
     readonly queryResolvers: IResolverObject;
     readonly mutationResolvers: IResolverObject;
     readonly graphQlModel: ObjectTypeComposer;
-    readonly mongooseModel: Model<any>;
+    readonly mongooseModel: Model<Document>;
 
     constructor() {
         // Set Models
@@ -48,9 +48,10 @@ export class Recognition {
         });
     }
 
+    //
     // Custom resolver functions
-    getRecognitions = async (resolverParams: IResolverParams): Promise<DocumentQuery<any[], any, {}>> => {
-        let queryConditions: {} | undefined;
+    getRecognitions = async (resolverParams: IResolverParams): Promise<DocumentQuery<unknown[], Document, Record<string, unknown>>> => {
+        let queryConditions: Record<string, unknown> | undefined;
 
         if (resolverParams.args.senderId) {
             queryConditions = {senderId: resolverParams.args.senderId}

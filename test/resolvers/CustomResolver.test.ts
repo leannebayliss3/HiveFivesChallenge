@@ -1,18 +1,18 @@
 import {CustomResolvers} from "../../src/resolvers/CustomResolvers";
-import {MongooseModel} from "../../src/models/MongooseModel";
 import {IResolverParams} from "../../src/resolvers/IResolverParams";
+import {MongooseModel} from "../../src/models/MongooseModel";
 
-import {DocumentQuery, Model} from "mongoose";
+import {Document, DocumentQuery, Model} from 'mongoose';
 import {ObjectTypeComposer} from "graphql-compose";
-import Spy = jasmine.Spy;
 import {composeWithMongoose} from "graphql-compose-mongoose";
 
+import Spy = jasmine.Spy;
 
 describe('CustomResolvers', () => {
-    let TestModel: Model<any>;
+    let TestModel: Model<Document>;
     let TestQlModel: ObjectTypeComposer;
     let testResolvers: CustomResolvers;
-    let testFunction: (resolverParams: IResolverParams) => Promise<DocumentQuery<any[], any, {}>>;
+    let testFunction: (resolverParams: IResolverParams) => Promise<DocumentQuery<unknown[], Document, Record<string, unknown>>>;
     let addResolverSpy: Spy;
 
     beforeAll(() => {
@@ -25,7 +25,7 @@ describe('CustomResolvers', () => {
         TestModel = new MongooseModel(modelOptions).model
         TestQlModel = composeWithMongoose(TestModel, {});
         testResolvers = new CustomResolvers(TestQlModel);
-        testFunction = async (): Promise<DocumentQuery<any[], any, {}>> => {
+        testFunction = async (): Promise<DocumentQuery<unknown[], Document, Record<string, unknown>>> => {
             return TestModel.find({});
         }
     });

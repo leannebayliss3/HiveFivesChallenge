@@ -1,11 +1,7 @@
-import {IResolverParams} from "./IResolverParams";
-import {DocumentQuery} from "mongoose";
+import {Document, DocumentQuery} from 'mongoose';
+import {IResolverParams} from './IResolverParams';
+import {ResolverDefinition} from 'graphql-compose/lib/Resolver';
 
-export interface ICustomResolver {
-    name: string,
-    args: {
-        [key: string] : any
-    },
-    type: any,
-    resolver: (resolverParams: IResolverParams) => Promise<DocumentQuery<any[], any, {}>>
+export interface ICustomResolver extends ResolverDefinition<unknown, unknown> {
+    resolver: (resolverParams: IResolverParams) => Promise<DocumentQuery<unknown[], Document, Record<string, unknown>>>
 }

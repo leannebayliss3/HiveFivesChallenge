@@ -1,11 +1,12 @@
-import mongoose from 'mongoose'
+import {IModelOptions} from './IModelOptions';
+import mongoose, {Document, Model, Schema} from 'mongoose';
 
 export class MongooseModel {
-    readonly model: mongoose.Model<any>;
-    private readonly schema: mongoose.Schema;
+    readonly model: Model<Document>;
+    private readonly schema: Schema;
 
-    constructor(options: { modelName: string, modelSchema: {}, modelTCOpts: {} }) {
-        this.schema = new mongoose.Schema(options.modelSchema, {timestamps: true});
+    constructor(options: IModelOptions) {
+        this.schema = new Schema(options.modelSchema, {timestamps: true});
         this.model = mongoose.model(options.modelName, this.schema);
     }
 }
